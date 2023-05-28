@@ -120,14 +120,22 @@ module.exports = {
                 }
             })
 
-            const price = await
+            const price = await product.findAll({
+                where: {
+                    id: hasil
+                },
+                attributes: ["id",'price']
+            })
 
+            
 
 
             res.status(200).send({
                 message: "success",
                 data,
-                req_qty
+                req_qty,
+                price,
+                result
             })
 
         } catch (error) {

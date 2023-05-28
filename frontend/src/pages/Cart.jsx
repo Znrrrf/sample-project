@@ -10,12 +10,30 @@ const Cart = () => {
     const [cart, setCart] = useState([])
     const [rQty, setRQty] = useState([])
     const [price, setPrice] = useState(0)
+    const [carts,setCarts] = useState([])
+    const [total, setTotal] = useState(0)
     useEffect(() => {
 
         // console.log(Uid);
         allProductOnCart()
 
     }, [])
+
+
+    useEffect(() => {
+        let totalPrice = 0
+
+        carts.forEach(ca => {
+            const product = price.find(p => p.id === ca.product_id)
+
+            if (product) {
+                totalPrice += product.price * ca.request_qty
+            }
+        })
+
+        setTotal(totalPrice)
+
+    },[carts, price])
 
     // useEffect(() => {
     //     console.log(price);
@@ -31,6 +49,8 @@ const Cart = () => {
                 console.log(result.data);
                 setRQty(result.data.req_qty)
                 setCart(result.data.data)
+                setPrice(result.data.price)
+                setCarts(result.data.result)
             }).catch((err) => {
                 console.log(err);
             });
@@ -103,7 +123,7 @@ const Cart = () => {
 
             <div style={{ display: 'flex', flexDirection: 'column', padding: '20px' }}>
                 <h1>total price:</h1>
-                <p>???</p>
+                <p>{total}</p>
                 <Button>check out</Button>
             </div>
 
