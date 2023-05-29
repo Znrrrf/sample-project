@@ -10,7 +10,7 @@ const Cart = () => {
     const [cart, setCart] = useState([])
     const [rQty, setRQty] = useState([])
     const [price, setPrice] = useState(0)
-    const [carts,setCarts] = useState([])
+    const [carts, setCarts] = useState([])
     const [total, setTotal] = useState(0)
     useEffect(() => {
 
@@ -33,7 +33,7 @@ const Cart = () => {
 
         setTotal(totalPrice)
 
-    },[carts, price])
+    }, [carts, price])
 
     // useEffect(() => {
     //     console.log(price);
@@ -54,18 +54,14 @@ const Cart = () => {
             }).catch((err) => {
                 console.log(err);
             });
-
-
     }
-
-    
 
     const allCart = cart.map((el) => {
 
         // setPrice(el.price)
-        
+
         return (
-            <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', padding: '20px' }} key={el.id}>
+            <div style={{ display: 'flex', flexDirection: 'row',height:'150px', backgroundColor:'green', justifyContent:'space-between', alignItems:'center', padding: '20px' }} key={el.id}>
                 <Image src={el.product_img} boxSize='100px' />
                 <div style={{ paddingRight: '20px', paddingLeft: '20px' }}>
                     <h1>product name: {el.product_name}</h1>
@@ -77,18 +73,18 @@ const Cart = () => {
                         {el.description}
                     </p>
                 </div>
+                <p style={{ paddingLeft: '20px', paddingLeft: '20px' }}>stock:{el.qty}</p>
             </div>
         )
     })
 
-    const requestQty = rQty.map((el,index) => {
+    const requestQty = rQty.map((el, index) => {
         return (
-            <div key={index + 1} style={{display:"flex"}}>
+            <div key={index + 1} style={{ display: "flex", flexDirection:"row", height:'150px', backgroundColor:'green', justifyContent:'center', alignItems:'center' }}>
                 <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', paddingLeft: '20px', paddingRight: '20px' }}>
                     <Button>-</Button>
                     <p>{el}</p>
                     <Button>+</Button>
-                    <p>stock: ???</p>
                 </div>
                 <Button>delete</Button>
             </div>
@@ -97,9 +93,14 @@ const Cart = () => {
     })
 
     return (
-        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems:'center' }}>
-            {allCart}
-            {requestQty}
+        <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', height:'300px', backgroundColor:'blue', justifyContent:'center', }}>
+                {allCart}
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+                {requestQty}
+            </div>
+
             {/* <div style={{ display: 'flex', flexDirection: 'row', alignItems:'center', padding:'20px' }}>
                 <Image src='https://bit.ly/dan-abramov' boxSize='100px' />
                 <div style={{ paddingRight: '20px', paddingLeft: '20px' }}>

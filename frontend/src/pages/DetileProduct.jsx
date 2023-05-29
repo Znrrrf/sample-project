@@ -31,7 +31,7 @@ const DetileProduct = () => {
 
     const handleAddToCart = async ( ) => {
 
-        const product_id = Uid
+        const product_id = Pid
         const user_id = Uid
         // console.log(product_id, user_id);
 
