@@ -48,9 +48,9 @@ const Cart = () => {
             .then((result) => {
                 console.log(result.data);
                 setRQty(result.data.req_qty)
-                setCart(result.data.data)
+                setCart(result.data.data) //product table dengan id user
                 setPrice(result.data.price)
-                setCarts(result.data.result)
+                setCarts(result.data.result) //cart table dengan id user
             }).catch((err) => {
                 console.log(err);
             });
@@ -58,10 +58,14 @@ const Cart = () => {
 
     const allCart = cart.map((el) => {
 
-        // setPrice(el.price)
+        let reqQty = carts.find((element) => {
 
+            if (element.product_id === el.id) {
+                return element.product_id
+            }
+        });
         return (
-            <div style={{ display: 'flex', flexDirection: 'row',height:'150px', backgroundColor:'green', justifyContent:'space-between', alignItems:'center', padding: '20px' }} key={el.id}>
+            <div style={{ display: 'flex', flexDirection: 'row', height: '150px', justifyContent: 'space-between', alignItems: 'center', padding: '20px' }} key={el.id}>
                 <Image src={el.product_img} boxSize='100px' />
                 <div style={{ paddingRight: '20px', paddingLeft: '20px' }}>
                     <h1>product name: {el.product_name}</h1>
@@ -74,32 +78,40 @@ const Cart = () => {
                     </p>
                 </div>
                 <p style={{ paddingLeft: '20px', paddingLeft: '20px' }}>stock:{el.qty}</p>
-            </div>
-        )
-    })
-
-    const requestQty = rQty.map((el, index) => {
-        return (
-            <div key={index + 1} style={{ display: "flex", flexDirection:"row", height:'150px', backgroundColor:'green', justifyContent:'center', alignItems:'center' }}>
-                <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', paddingLeft: '20px', paddingRight: '20px' }}>
-                    <Button>-</Button>
-                    <p>{el}</p>
-                    <Button>+</Button>
+                <div style={{ display: "flex", flexDirection: "row", height: '150px', justifyContent: 'center', alignItems: 'center' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', paddingLeft: '20px', paddingRight: '20px' }}>
+                        <Button>-</Button>
+                        <p>{reqQty.request_qty}</p>
+                        <Button>+</Button>
+                    </div>
+                    <Button>delete</Button>
                 </div>
-                <Button>delete</Button>
             </div>
-
         )
     })
+
+    // const requestQty = rQty.map((el, index) => {
+    //     return (
+    //         <div key={index + 1} style={{ display: "flex", flexDirection: "row", height: '150px', backgroundColor: 'green', justifyContent: 'center', alignItems: 'center' }}>
+    //             <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', paddingLeft: '20px', paddingRight: '20px' }}>
+    //                 <Button>-</Button>
+    //                 <p>{el}</p>
+    //                 <Button>+</Button>
+    //             </div>
+    //             <Button>delete</Button>
+    //         </div>
+
+    //     )
+    // })
 
     return (
         <div style={{ display: 'flex', flexDirection: 'row', width: '100%', justifyContent: 'center', alignItems: 'center' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', height:'300px', backgroundColor:'blue', justifyContent:'center', }}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', }}>
                 {allCart}
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
+            {/* <div style={{ display: 'flex', flexDirection: 'column' }}>
                 {requestQty}
-            </div>
+            </div> */}
 
             {/* <div style={{ display: 'flex', flexDirection: 'row', alignItems:'center', padding:'20px' }}>
                 <Image src='https://bit.ly/dan-abramov' boxSize='100px' />

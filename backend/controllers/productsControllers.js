@@ -64,10 +64,8 @@ module.exports = {
                     product_id,
                     user_id,
                     request_qty: 1,
-                    status_id: 1
                 })
             }
-
             
 
             res.status(200).send({
@@ -135,6 +133,28 @@ module.exports = {
                 data,
                 req_qty,
                 price,
+                result
+            })
+
+        } catch (error) {
+            res.status(400).send(error)
+        }
+    },
+    deleteProductFromCart: async (req, res) => {
+        try {
+            
+            const { product_id, user_id } = req.body
+
+
+            const result = await cart.destroy({
+                where:{
+                    product_id,
+                    user_id
+                }
+            })
+
+            res.status(200).send({
+                message: 'success',
                 result
             })
 

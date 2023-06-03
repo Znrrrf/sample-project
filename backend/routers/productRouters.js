@@ -8,6 +8,7 @@ router.post('/register', productControllers.productRegis);
 router.post('/cart', productControllers.productOnCart);
 router.post('/product-detail', productControllers.getOneProduct);
 router.post("/product-on-cart", productControllers.getAllProductOnCart);
+router.delete('/delete-cart', productControllers.deleteProductFromCart);
 
 
 module.exports = router;
